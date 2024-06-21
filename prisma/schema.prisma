@@ -17,8 +17,15 @@ model Product {
   seller      Seller?   @relation(fields: [sellerId], references: [id], onDelete: SetNull)
   sellerId    Int?
   Order       Order[]
-  comment      String
+  Comment     Comment[]
+}
+
+model Comment {
+  id        Int     @id @default(autoincrement())
+  text      String
   username  String
+  productId Int
+  Product   Product @relation(fields: [productId], references: [id])
 }
 
 // Sellers of products
