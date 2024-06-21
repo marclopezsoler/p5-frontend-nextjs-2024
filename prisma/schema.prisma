@@ -17,7 +17,8 @@ model Product {
   seller      Seller?   @relation(fields: [sellerId], references: [id], onDelete: SetNull)
   sellerId    Int?
   Order       Order[]
-  Comment     Comment[]
+  comment      String
+  username  String
 }
 
 // Sellers of products
@@ -48,14 +49,4 @@ model Order {
   productId Int?
   status    String
   createdAt DateTime @default(now())
-}
-
-//Comments on products (not related to users)
-model Comment {
-  id        Int      @id @default(autoincrement())
-  text      String
-  username  String
-  createdAt DateTime @default(now())
-  productId Int?
-  product   Product? @relation(fields: [productId], references: [id])
 }
