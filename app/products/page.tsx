@@ -9,7 +9,7 @@ type Product = {
   description: string;
   color: string;
   sellerId: number | null;
-  comments: Comment[];
+  Comment: Comment[];
   seller: Seller | null;
   Order: Order[];
 };
@@ -53,7 +53,27 @@ function ProductsPage() {
       <h1>Products</h1>
       <ul>
         {products.map(product => (
-          <li key={product.id}>{product.name}</li>
+          <li key={product.id}>
+            <h2>{product.name}</h2>
+            <p>{product.description}</p>
+            <p>Price: ${product.price}</p>
+            <p>Color: {product.color}</p>
+            {product.Comment.length > 0 && (
+              <div>
+                <h3>Comments:</h3>
+                <ul>
+                  {product.Comment.map(comment => (
+                    <li key={comment.id}>
+                      <p><strong>{comment.username}:</strong> {comment.text}</p>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            )}
+            {product.Comment.length === 0 && (
+              <p>No comments yet</p>
+            )}
+          </li>
         ))}
       </ul>
     </div>
