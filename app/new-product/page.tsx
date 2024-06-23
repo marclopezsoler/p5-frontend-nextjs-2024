@@ -17,24 +17,31 @@ import { z } from "zod";
 const formSchema = z.object({
   Name: z
     .string()
-    .min(3, { message: "Product name must be at least 3 characters long." })
+    .min(3, { message: "Product name must be at least 3 characters long" })
     .max(30),
-  Price: z.number(),
+  Price: z.number().min(1, { message: "Enter a valid number" }),
   Description: z
     .string()
     .min(15, {
-      message: "Product description must be at least 15 characters long.",
+      message: "Product description must be at least 15 characters long",
     })
     .max(150),
-  Color: z.string(),
+  Color: z.string().min(1, { message: "Enter a color" }),
 });
+
+const placeholders = {
+  Name: "Enter product name...",
+  Price: "Enter product price...",
+  Description: "Enter product description...",
+  Color: "Enter product color...",
+};
 
 export default function NewProductPage() {
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
       Name: "",
-      Price: 0,
+      Price: undefined,
       Description: "",
       Color: "",
     },
@@ -44,9 +51,12 @@ export default function NewProductPage() {
   type FieldName = keyof typeof schemaShape;
 
   return (
-    <main className="m-4 flex flex-1 items-center justify-center">
+    <main className="m-12 flex flex-1 items-center justify-center">
       <Form {...form}>
-        <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
+        <form
+          onSubmit={form.handleSubmit(onSubmit)}
+          className="space-y-8 shadow-md rounded-xl p-8 min-w-96 flex flex-col"
+        >
           {Object.keys(schemaShape).map((fieldName) => {
             const typedFieldName = fieldName as FieldName;
             return (
@@ -56,17 +66,34 @@ export default function NewProductPage() {
                 name={typedFieldName}
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>{typedFieldName}</FormLabel>
+                    <FormLabel className="font-semibold">
+                      {typedFieldName}
+                    </FormLabel>
                     <FormControl>
-                      <Input placeholder={typedFieldName} {...field} />
+                      <Input
+                        type={typedFieldName === "Price" ? "number" : "text"}
+                        placeholder={placeholders[typedFieldName]}
+                        {...field}
+                        value={field.value ?? ""}
+                        onChange={(e) =>
+                          field.onChange(
+                            typedFieldName === "Price"
+                              ? e.target.valueAsNumber
+                              : e.target.value
+                          )
+                        }
+                        className="border-none placeholder-gray-500"
+                      />
                     </FormControl>
-                    <FormMessage />
+                    <FormMessage className="text-red-500" />
                   </FormItem>
                 )}
               />
             );
           })}
-          <Button type="submit">Submit</Button>
+          <Button type="submit" size={"lg"} variant={"link"}>
+            CREATE PRODUCT
+          </Button>
         </form>
       </Form>
     </main>
@@ -74,5 +101,5 @@ export default function NewProductPage() {
 }
 
 function onSubmit(values: z.infer<typeof formSchema>) {
-  console.log(values);
+  alert(values);
 }
