@@ -3,6 +3,7 @@ import React from "react";
 import sellEaseLogo from "../public/sellease_logo.png";
 import Link from "next/link";
 import MenuItem from "./MenuItem";
+import { FaPlus } from "react-icons/fa6";
 
 export default function Header() {
   return (
@@ -24,6 +25,9 @@ export default function Header() {
           <MenuItem text="Products" />
           <MenuItem text="Categories" />
           <MenuItem text="Profile" />
+          <Link href="new-product" className="cursor-pointer">
+            <FaPlus />
+          </Link>
         </div>
       </div>
     </header>

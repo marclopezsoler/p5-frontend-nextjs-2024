@@ -2,28 +2,7 @@ import { PrismaClient } from "@prisma/client";
 const prisma = new PrismaClient();
 
 async function main() {
-  // Creation of 10 clients
-
   try {
-    const clients = [
-      { email: "john.smith@gmail.com", name: "John_Smith" },
-      { email: "emily.jones@gmail.com", name: "Emily_Jones" },
-      { email: "michael.davis@gmail.com", name: "Michael_Davis" },
-      { email: "sarah.wilson@gmail.com", name: "Sarah_Wilson" },
-      { email: "david.brown@gmail.com", name: "David_Brown" },
-      { email: "jessica.miller@gmail.com", name: "Jessica_Miller" },
-      { email: "william.taylor@gmail.com", name: "William_Taylor" },
-      { email: "olivia.jackson@gmail.com", name: "Olivia_Jackson" },
-      { email: "james.thomas@gmail.com", name: "James_Thomas" },
-      { email: "emma.white@gmail.com", name: "Emma_White" },
-    ];
-
-    for (const clientData of clients) {
-      await prisma.client.create({
-        data: clientData,
-      });
-    }
-
     // Creation of 5 seller
     const sellers = [
       { email: "contact@nike.com", name: "Nike" },
@@ -127,44 +106,6 @@ async function main() {
     for (const productData of products) {
       await prisma.product.create({
         data: productData,
-      });
-    }
-
-    // Comments
-
-    const comments = [
-      { text: "best quality", username: "noname", productId: 3 },
-    ];
-
-    for (const commentData of comments) {
-      await prisma.comment.create({
-        data: commentData,
-      })
-    }
-
-    // Creation of 15 orders
-
-    const orders = [
-      { clientId: 1, sellerId: 1, productId: 1, status: "Processing" },
-      { clientId: 2, sellerId: 2, productId: 3, status: "Completed" },
-      { clientId: 3, sellerId: 3, productId: 5, status: "Pending" },
-      { clientId: 4, sellerId: 4, productId: 7, status: "Cancelled" },
-      { clientId: 5, sellerId: 5, productId: 9, status: "Shipped" },
-      { clientId: 6, sellerId: 1, productId: 2, status: "Shipped" },
-      { clientId: 7, sellerId: 2, productId: 4, status: "Processing" },
-      { clientId: 8, sellerId: 3, productId: 6, status: "Completed" },
-      { clientId: 9, sellerId: 4, productId: 8, status: "Processing" },
-      { clientId: 10, sellerId: 5, productId: 10, status: "Processing" },
-      { clientId: 1, sellerId: 1, productId: 1, status: "Pending" },
-      { clientId: 2, sellerId: 2, productId: 3, status: "Completed" },
-      { clientId: 3, sellerId: 3, productId: 5, status: "Shipped" },
-      { clientId: 4, sellerId: 4, productId: 7, status: "Completed" },
-      { clientId: 5, sellerId: 5, productId: 9, status: "Processing" },
-    ];
-
-    for (const orderData of orders) {
-      await prisma.order.create({
-        data: orderData,
       });
     }
 

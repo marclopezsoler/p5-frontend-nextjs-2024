@@ -9,23 +9,13 @@ datasource db {
 
 // Products of the store
 model Product {
-  id          Int       @id @default(autoincrement())
+  id          Int     @id @default(autoincrement())
   name        String
   price       Float
   description String
   color       String
-  seller      Seller?   @relation(fields: [sellerId], references: [id], onDelete: SetNull)
+  seller      Seller? @relation(fields: [sellerId], references: [id], onDelete: SetNull)
   sellerId    Int?
-  Order       Order[]
-  Comment     Comment[]
-}
-
-model Comment {
-  id        Int     @id @default(autoincrement())
-  text      String
-  username  String
-  productId Int
-  Product   Product @relation(fields: [productId], references: [id])
 }
 
 // Sellers of products
@@ -34,26 +24,4 @@ model Seller {
   email   String    @unique
   name    String    @unique
   Product Product[]
-  Order   Order[]
-}
-
-// Clients that can buy products
-model Client {
-  id    Int     @id @default(autoincrement())
-  email String  @unique
-  name  String  @unique
-  Order Order[]
-}
-
-// Orders that comes from the sale of a single product
-model Order {
-  id        Int      @id @default(autoincrement())
-  client    Client?  @relation(fields: [clientId], references: [id], onDelete: SetNull)
-  clientId  Int?
-  seller    Seller?  @relation(fields: [sellerId], references: [id], onDelete: SetNull)
-  sellerId  Int?
-  product   Product? @relation(fields: [productId], references: [id], onDelete: SetNull)
-  productId Int?
-  status    String
-  createdAt DateTime @default(now())
 }
