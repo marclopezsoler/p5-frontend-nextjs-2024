@@ -52,7 +52,6 @@ export default function ProductsPage() {
 
   return (
     <main className="m-4">
-      <h1>Products</h1>
       <div className="products-container">
         {products.map((product) => (
           // <Card>
