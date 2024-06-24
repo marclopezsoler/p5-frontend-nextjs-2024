@@ -1,3 +1,6 @@
+import { prisma } from "@/db/db";
+
+
 export type Product = {
   id: number;
   name: String;
@@ -8,3 +11,11 @@ export type Product = {
   category: string;
   dateOfCreation: Date;
 };
+
+export async function getProducts() {
+  return await prisma.product.findMany({
+    orderBy: {
+      name: "asc",
+    },
+  });
+}

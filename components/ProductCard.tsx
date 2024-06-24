@@ -1,14 +1,12 @@
 import { Product } from "@/lib/products";
+import Link from "next/link";
 import {
   Card,
   CardContent,
   CardDescription,
-  CardFooter,
   CardHeader,
-  CardTitle,
+  CardTitle
 } from "./ui/card";
-import Link from "next/link";
-import { Button } from "./ui/button";
 
 type productCardProps = {
   product: Product;
@@ -23,6 +21,7 @@ export default function ProductCard({ product }: productCardProps) {
           <CardTitle className="font-bold text-lg">{product.name}</CardTitle>
           <a className="font-bold text-lg">{product.price} €</a>
         </div>
+        <CardDescription className="font-normal text-base text-gray-600">{product.category}</CardDescription>
         <CardDescription className="text-md line-clamp-3">
           {product.description}
         </CardDescription>
