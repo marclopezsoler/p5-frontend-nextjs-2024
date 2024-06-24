@@ -4,27 +4,38 @@ import { actiondeleteProduct } from "@/app/actions/products";
 import { Button } from "@/components/ui/button";
 import {
   Dialog,
-  DialogClose,
   DialogContent,
   DialogDescription,
-  DialogFooter,
   DialogHeader,
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import { useState } from "react";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useForm } from "react-hook-form";
+import { z } from "zod";
+import { Form, FormControl, FormField, FormItem, FormMessage } from "./ui/form";
 
 type ProductProps = {
   productId: number;
 };
 
-export function DialogCloseButton({ productId }: ProductProps) {
-  const [inputValue, setInputValue] = useState("");
+const formSchema = z.object({
+  Delete: z
+    .string()
+    .min(6, { message: "Please type DELETE" })
+    .max(6, { message: "Please type DELETE" }),
+});
 
-  async function deleteProduct(productId: number) {
-    if (inputValue === "DELETE") {
+type FormSchemaType = z.infer<typeof formSchema>;
+
+export function DialogCloseButton({ productId }: ProductProps) {
+  const form = useForm<FormSchemaType>({
+    resolver: zodResolver(formSchema),
+  });
+
+  async function deleteProduct(data: FormSchemaType) {
+    if (data.Delete === "DELETE") {
       await actiondeleteProduct(productId);
     } else {
       alert("Please type DELETE to confirm");
@@ -48,38 +59,43 @@ export function DialogCloseButton({ productId }: ProductProps) {
             To delete this product please type "DELETE".
           </DialogDescription>
         </DialogHeader>
-        <div className="flex items-center space-x-2">
-          <div className="grid flex-1 gap-2">
-            <Label htmlFor="link" className="sr-only">
-              Link
-            </Label>
-            <Input
-              id="delete"
-              value={inputValue}
-              onChange={(e) => setInputValue(e.target.value)}
-            />
-          </div>
-          <Button
-            type="button"
-            size="lg"
-            className="font-semibold text-white bg-black rounded-xl"
-            variant={"outline"}
-            onClick={() => deleteProduct(productId)}
+        <Form {...form}>
+          <form
+            onSubmit={form.handleSubmit(deleteProduct)}
+            className="space-y-4"
           >
-            Delete
-          </Button>
-        </div>
-        <DialogFooter className="sm:justify-start">
-          <DialogClose asChild>
+            <FormField
+              control={form.control}
+              name="Delete"
+              render={({ field }) => (
+                <FormItem>
+                  <FormControl>
+                    <Input
+                      placeholder="Type DELETE"
+                      {...field}
+                      value={field.value ?? ""}
+                      onChange={(e) => field.onChange(e.target.value)}
+                      className="border-none placeholder-gray-500"
+                    />
+                  </FormControl>
+                  {form.formState.errors.Delete && (
+                    <FormMessage className="text-red-500">
+                      {form.formState.errors.Delete.message}
+                    </FormMessage>
+                  )}
+                </FormItem>
+              )}
+            />
             <Button
-              type="button"
+              type="submit"
+              size="lg"
               className="font-semibold text-white bg-black rounded-xl"
               variant={"outline"}
             >
-              Cancel
+              Delete
             </Button>
-          </DialogClose>
-        </DialogFooter>
+          </form>
+        </Form>
       </DialogContent>
     </Dialog>
   );
