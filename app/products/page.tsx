@@ -1,5 +1,3 @@
-"use client";
-
 import ProductCard from "@/components/ProductCard";
 import { Product } from "@/lib/products";
 import { actionGetProducts } from "../actions/products";

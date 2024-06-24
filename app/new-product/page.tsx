@@ -11,8 +11,10 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
+import { actionAddProduct } from "../actions/products";
 
 const formSchema = z.object({
   Name: z
@@ -37,6 +39,8 @@ const placeholders = {
 };
 
 export default function NewProductPage() {
+  const router = useRouter();
+
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -47,6 +51,10 @@ export default function NewProductPage() {
     },
   });
 
+  async function createNewProduct(formData: z.infer<typeof formSchema>) {
+    await actionAddProduct(formData);
+  }
+
   const schemaShape = formSchema._def.shape();
   type FieldName = keyof typeof schemaShape;
 
@@ -55,7 +63,7 @@ export default function NewProductPage() {
       <h1 className="font-bold text-xl">Create a new product</h1>
       <Form {...form}>
         <form
-          onSubmit={form.handleSubmit(onSubmit)}
+          onSubmit={form.handleSubmit(createNewProduct)}
           className="space-y-8 shadow-md rounded-xl p-8 min-w-96 flex flex-col"
         >
           {Object.keys(schemaShape).map((fieldName) => {
@@ -100,8 +108,4 @@ export default function NewProductPage() {
       </Form>
     </main>
   );
-}
-
-function onSubmit(values: z.infer<typeof formSchema>) {
-  alert(values);
 }

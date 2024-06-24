@@ -7,3 +7,18 @@
     grid-template-columns: 1fr 1fr 1fr;
     gap: 1rem;
   }
+
+  .product-details{
+    display: flex;
+    flex: 1;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .card{
+    max-width: 600px;
+  }
+
+  .card > div {
+    max-width: 100%;
+  }
