@@ -32,13 +32,14 @@ export default async function ProductDetails({ params }: PageProps) {
         <div className="flex bg-zinc-200 h-72 rounded-xl p-4 m-4 pb-2 mb-2"></div>
         <CardHeader>
           <div className="flex flex-row justify-between">
-            <CardTitle className="font-bold text-lg">{product.name}</CardTitle>
-            <a className="font-bold text-lg">{product.price}€</a>
+            <CardTitle className="font-bold text-lg">{product.Name}</CardTitle>
+            <a className="font-bold text-lg">{product.Price}€</a>
           </div>
         </CardHeader>
         <CardDescription className="text-base px-6 flex flex-col">
-          <a className="text-gray-600 font-normal">{product.category}</a>
-          <a className="font-medium">{product.description}</a>
+          <a className="text-gray-600 font-normal">{product.Category}</a>
+          <a className="text-gray-600 font-normal">{product.Seller}</a>
+          <a className="font-medium">{product.Description}</a>
         </CardDescription>
         <CardContent className="flex flex-row align-middle mt-4">
           <DialogCloseButton productId={productId}/>

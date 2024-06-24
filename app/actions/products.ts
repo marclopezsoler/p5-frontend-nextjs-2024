@@ -19,8 +19,9 @@ export async function actionGetSingleProduct(id: number) {
 }
 
 export async function actionAddProduct(data: FormData) {
-  const book = await addProduct(data);
-  return book;
+  const product = await addProduct(data);
+  redirect("/products");
+  return product;
 }
 
 export async function actiondeleteProduct(productId: number) {

@@ -10,11 +10,11 @@ datasource db {
 // Products of the store
 model Product {
   id             Int      @id @default(autoincrement())
-  name           String
-  price          Float
-  description    String
-  color          String
-  seller         String
-  category       String
-  dateOfCreation DateTime @default(now()) 
+  Name           String
+  Price          Float
+  Description    String
+  Color          String
+  Seller         String
+  Category       String
+  created_at DateTime @default(now()) 
 }

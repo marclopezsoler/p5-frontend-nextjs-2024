@@ -2,19 +2,19 @@ import { prisma } from "@/db/db";
 
 export type Product = {
   id: number;
-  name: String;
-  price: number;
-  description: String;
-  color: String;
-  seller: string;
-  category: string;
-  dateOfCreation: Date;
+  Name: String;
+  Price: number;
+  Description: String;
+  Color: String;
+  Seller: string;
+  Category: string;
+  created_at: Date;
 };
 
 export async function getProducts() {
   return await prisma.product.findMany({
     orderBy: {
-      dateOfCreation: "asc",
+      created_at: "desc",
     },
   });
 }

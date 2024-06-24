@@ -25,7 +25,7 @@ export default function Header() {
           <MenuItem text="Products" />
           <MenuItem text="Sellers" />
           <MenuItem text="Profile" />
-          <Link href="new-product" className="cursor-pointer">
+          <Link href="/new-product" className="cursor-pointer" >
             <FaPlus />
           </Link>
         </div>

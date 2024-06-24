@@ -11,7 +11,6 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { actionAddProduct } from "../actions/products";
@@ -29,6 +28,8 @@ const formSchema = z.object({
     })
     .max(150),
   Color: z.string().min(1, { message: "Enter a color" }),
+  Seller: z.string().min(1, { message: "Enter a seller name" }),
+  Category: z.string().min(1, { message: "Enter a category" }),
 });
 
 const placeholders = {
@@ -36,10 +37,11 @@ const placeholders = {
   Price: "Enter product price...",
   Description: "Enter product description...",
   Color: "Enter product color...",
+  Seller: "Enter a seller name...",
+  Category: "Enter a product category...",
 };
 
 export default function NewProductPage() {
-  const router = useRouter();
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -48,6 +50,8 @@ export default function NewProductPage() {
       Price: undefined,
       Description: "",
       Color: "",
+      Seller: "",
+      Category: "",
     },
   });
 
