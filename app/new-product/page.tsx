@@ -51,7 +51,8 @@ export default function NewProductPage() {
   type FieldName = keyof typeof schemaShape;
 
   return (
-    <main className="m-12 flex flex-1 items-center justify-center">
+    <main className="m-12 flex flex-1 flex-col items-center justify-center">
+      <h1 className="font-bold text-xl">Create a new product</h1>
       <Form {...form}>
         <form
           onSubmit={form.handleSubmit(onSubmit)}
@@ -83,6 +84,7 @@ export default function NewProductPage() {
                           )
                         }
                         className="border-none placeholder-gray-500"
+                        min={typedFieldName === "Price" ? 1 : undefined}
                       />
                     </FormControl>
                     <FormMessage className="text-red-500" />

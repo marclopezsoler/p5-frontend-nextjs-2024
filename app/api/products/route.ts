@@ -5,12 +5,13 @@ const prisma = new PrismaClient();
 
 export async function GET(req: NextRequest) {
   try {
+    const { searchParams } = new URL(req.url);
+    const orderBy = searchParams.get("orderBy") || "name";
+
     const products = await prisma.product.findMany({
-      orderBy: [
-        {
-          price: 'asc'
-        }
-      ]
+      orderBy: {
+        [orderBy]: 'asc',
+      },
     });
     return NextResponse.json(products);
   } catch (error) {
