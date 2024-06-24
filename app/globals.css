@@ -7,12 +7,3 @@
     grid-template-columns: 1fr 1fr 1fr;
     gap: 1rem;
   }
-
-  .products-card{
-    transition: 0.15s ease-in-out;
-  }
-
-  .products-card:hover{
-    transition: 0.15s ease-in-out;
-    transform: scale(1.025);
-  }

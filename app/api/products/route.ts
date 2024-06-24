@@ -6,9 +6,11 @@ const prisma = new PrismaClient();
 export async function GET(req: NextRequest) {
   try {
     const products = await prisma.product.findMany({
-      include: {
-        seller: true,
-      },
+      orderBy: [
+        {
+          price: 'asc'
+        }
+      ]
     });
     return NextResponse.json(products);
   } catch (error) {

@@ -9,19 +9,12 @@ datasource db {
 
 // Products of the store
 model Product {
-  id          Int     @id @default(autoincrement())
-  name        String
-  price       Float
-  description String
-  color       String
-  seller      Seller? @relation(fields: [sellerId], references: [id], onDelete: SetNull)
-  sellerId    Int?
-}
-
-// Sellers of products
-model Seller {
-  id      Int       @id @default(autoincrement())
-  email   String    @unique
-  name    String    @unique
-  Product Product[]
+  id             Int      @id @default(autoincrement())
+  name           String
+  price          Float
+  description    String
+  color          String
+  seller         String
+  category       String
+  dateOfCreation DateTime @default(now()) 
 }

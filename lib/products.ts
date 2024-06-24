@@ -4,4 +4,7 @@ export type Product = {
   price: number;
   description: String;
   color: String;
+  seller: string;
+  category: string;
+  dateOfCreation: Date;
 };

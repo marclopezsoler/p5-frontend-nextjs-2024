@@ -23,7 +23,7 @@ export default function Header() {
         </Link>
         <div className="flex flex-row gap-4 items-center justify-between">
           <MenuItem text="Products" />
-          <MenuItem text="Categories" />
+          <MenuItem text="Sellers" />
           <MenuItem text="Profile" />
           <Link href="new-product" className="cursor-pointer">
             <FaPlus />
